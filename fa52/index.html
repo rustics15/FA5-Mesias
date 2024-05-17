@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contacts List</title>
+</head>
+<body>
+    <input type="text" id="contactName" placeholder="Enter contact name">
+    <button onclick="addContact()">Add</button>
+    <button onclick="removeContact()">Remove</button>
+    <div id="contacts"></div>
+
+    <script>
+        let contacts = [];
+
+        function addContact() {
+            let contactName = document.getElementById("contactName").value.trim();
+            if (contactName === "") {
+                alert("Please enter a valid contact name.");
+                return;
+            }
+
+            if (contacts.length >= 7) {
+                contacts.shift(); // Remove the first contact if the list is already full
+            }
+
+            contacts.push(contactName);
+            document.getElementById("contactName").value = ""; // Clear the input box
+            displayContacts();
+        }
+
+        function removeContact() {
+            contacts.pop(); // Remove the last contact from the list
+            displayContacts();
+        }
+
+        function displayContacts() {
+            let contactsDiv = document.getElementById("contacts");
+            contactsDiv.innerHTML = ""; // Clear current contacts display
+
+            contacts.forEach(contact => {
+                let contactElement = document.createElement("div");
+                contactElement.className = "contact";
+                contactElement.textContent = contact;
+                contactsDiv.appendChild(contactElement);
+            });
+        }
+    </script>
+</body>
+</html>
